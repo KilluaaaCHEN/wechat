@@ -91,7 +91,7 @@ class IndexController extends Controller
                     return '收到文字消息' . $message;
                     break;
                 case 'image':
-                    return PHP_EOL . $message;
+                    return new Image(['media_id' => 'l0g2_vWTfcUyRSefKF4iDrUuBSxfl-GjEHTVykPu2_hMq1TNCyYTplZFwoEA_pmz']);
                     break;
                 case 'voice':
                     return PHP_EOL . $message;
@@ -128,13 +128,11 @@ class IndexController extends Controller
                             "type" => "scancode_waitmsg",
                             "name" => "扫码带提示",
                             "key" => "rselfmenu_0_0",
-                            "sub_button" => []
                         ],
                         [
                             "type" => "scancode_push",
                             "name" => "扫码推事件",
                             "key" => "rselfmenu_0_1",
-                            "sub_button" => []
                         ]
                     ]
                 ],
@@ -145,38 +143,39 @@ class IndexController extends Controller
                             "type" => "pic_sysphoto",
                             "name" => "系统拍照发图",
                             "key" => "rselfmenu_1_0",
-                            "sub_button" => []
                         ],
                         [
                             "type" => "pic_photo_or_album",
                             "name" => "拍照或者相册发图",
                             "key" => "rselfmenu_1_1",
-                            "sub_button" => []
                         ],
                         [
                             "type" => "pic_weixin",
                             "name" => "微信相册发图",
                             "key" => "rselfmenu_1_2",
-                            "sub_button" => []
                         ]
                     ]
                 ],
                 [
-                    "name" => "发送位置",
-                    "type" => "location_select",
-                    "key" => "rselfmenu_2_0"
-                ],
-                [
-                    "type" => "media_id",
-                    "name" => "图片",
-                    "media_id" => "MEDIA_ID1"
-                ],
-                [
-                    "type" => "view_limited",
-                    "name" => "图文消息",
-                    "media_id" => "MEDIA_ID2"
+                    "name" => "文字/位置",
+                    "sub_button" => [
+//                        [
+//                            "type" => "media_id",
+//                            "name" => "图片",
+//                            "media_id" => "gLO17UPS6FS2xsypf378iaNhWacZ1G1UplZYWEYfwvuU6Ont96b1roYsCNFwaRrSaKTPCUdBK9DgEHicsKwWCBRQ"
+//                        ],
+//                        [
+//                            "type" => "view_limited",
+//                            "name" => "图文消息",
+//                            "media_id" => "gLO17UPS6FS2xsypf378iaNhWacZ1G1UplZYWEYfwvuU6Ont96b1roYsCNFwaRrSaKTPCUdBK9DgEHicsKwWCBRQ"
+//                        ],
+                        [
+                            "name" => "发送位置",
+                            "type" => "location_select",
+                            "key" => "rselfmenu_2_0"
+                        ]
+                    ]
                 ]
-
             ];
 //        $buttons = [
 //            [
