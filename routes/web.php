@@ -14,7 +14,12 @@
 Route::get('/', function () {
     return redirect('http://larry666.com:8080');
 });
-
+Route::get('/tags/{tag}', function ($tag) {
+    return redirect("http://larry666.com:8080/tags/$tag");
+});
+Route::get('/view/{post_id}', function ($post_id) {
+    return redirect("http://larry666.com:8080/view/$post_id");
+});
 
 Route::any('callback', ['as' => 'wechat_callback', 'uses' => 'Wechat\IndexController@callback']);
 Route::get('menu', 'Wechat\IndexController@menu');
