@@ -12,22 +12,16 @@
 */
 
 Route::get('/', function () {
-    return redirect('http://larry666.com:8080');
-});
-Route::get('/tags/{tag}', function ($tag) {
-    return redirect("http://larry666.com:8080/tags/$tag");
-});
-Route::get('/view/{post_id}', function ($post_id) {
-    return redirect("http://larry666.com:8080/view/$post_id");
+    return 'Hello World';
 });
 
-Route::any('callback', ['as' => 'wechat_callback', 'uses' => 'Wechat\IndexController@callback']);
-Route::get('menu', 'Wechat\IndexController@menu');
-Route::get('notice', 'Wechat\IndexController@notice');
-Route::get('reply', 'Wechat\IndexController@reply');
-Route::get('qrcode', 'Wechat\IndexController@qrCode');
+Route::group(['middleware' => ['web', 'wechat.oauth'], 'prefix' => 'wechat'], function () {
 
-Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
+    Route::any('callback', ['as' => 'wechat_callback', 'uses' => 'Wechat\IndexController@callback']);
+    Route::get('menu', 'Wechat\IndexController@menu');
+    Route::get('notice', 'Wechat\IndexController@notice');
+    Route::get('reply', 'Wechat\IndexController@reply');
+    Route::get('qrcode', 'Wechat\IndexController@qrCode');
     Route::get('/user', function () {
         $user = session('wechat.oauth_user'); // 拿到授权用户资料
         dd($user);
