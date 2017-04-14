@@ -91,7 +91,7 @@ class IndexController extends Controller
                     return '收到文字消息' . $message;
                     break;
                 case 'image':
-                    return new Image(['media_id' => 'l0g2_vWTfcUyRSefKF4iDrUuBSxfl-GjEHTVykPu2_hMq1TNCyYTplZFwoEA_pmz']);
+                    return '收到图片消息' . $message;
                     break;
                 case 'voice':
                     return PHP_EOL . $message;
@@ -157,18 +157,18 @@ class IndexController extends Controller
                     ]
                 ],
                 [
-                    "name" => "文字/位置",
+                    "name" => "点击/位置",
                     "sub_button" => [
-//                        [
-//                            "type" => "media_id",
-//                            "name" => "图片",
-//                            "media_id" => "gLO17UPS6FS2xsypf378iaNhWacZ1G1UplZYWEYfwvuU6Ont96b1roYsCNFwaRrSaKTPCUdBK9DgEHicsKwWCBRQ"
-//                        ],
-//                        [
-//                            "type" => "view_limited",
-//                            "name" => "图文消息",
-//                            "media_id" => "gLO17UPS6FS2xsypf378iaNhWacZ1G1UplZYWEYfwvuU6Ont96b1roYsCNFwaRrSaKTPCUdBK9DgEHicsKwWCBRQ"
-//                        ],
+                        [
+                            "type" => "view",
+                            "name" => "视频",
+                            "url" => "http://v.qq.com/"
+                        ],
+                        [
+                            "type" => "click",
+                            "name" => "赞一下我们",
+                            "key" => "V1001_GOOD"
+                        ],
                         [
                             "name" => "发送位置",
                             "type" => "location_select",
@@ -235,6 +235,13 @@ class IndexController extends Controller
 
     public function qrCode(Application $wechat)
     {
+        // 永久素材
+        $material = $wechat->material;
+        $result = $material->uploadImage("/Users/killua/百度云同步盘/来自：iPhone/2012-03-02 124548.jpg");  // 请使用绝对路径写法！除非你正确的理解了相对路径（好多人是没理解对的）！
+        var_dump($result);
+        exit;
+
+
         $qrcode = $wechat->qrcode;
         $result = $qrcode->forever('back_sign');
         $ticket = $result->ticket;// 或者 $result['ticket']
