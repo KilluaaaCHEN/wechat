@@ -16,10 +16,10 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function callback()
+    public function callback(Application $wechat)
     {
-        $wechat = app('wechat');
-        $wechat->server->setMessageHandler(function ($message) {
+        $userApi=$wechat->user;
+        $wechat->server->setMessageHandler(function ($message) use ($userApi) {
             switch ($message->MsgType) {
                 case 'event':
                     switch ($message->Event) {
@@ -88,7 +88,7 @@ class IndexController extends Controller
                     }
                     break;
                 case 'text':
-                    return '收到文字消息' . $message;
+                    return '你好' . $userApi->get($message->FromUserName);
                     break;
                 case 'image':
                     return '收到图片消息' . $message;
