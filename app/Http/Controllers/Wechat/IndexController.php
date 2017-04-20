@@ -88,7 +88,7 @@ class IndexController extends Controller
                     }
                     break;
                 case 'text':
-                    return '777:' . $userApi->get($message->FromUserName)->nickname;
+                    return '666:' . $userApi->get($message->FromUserName)->nickname;
                     break;
                 case 'image':
                     return '收到图片消息' . $message;
