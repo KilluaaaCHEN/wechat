@@ -32,15 +32,16 @@ Route::group(['prefix' => 'wechat'], function () {
 
 });
 
-Route::post('/hooks', 'DeploymentController@deploy');
-//Route::post('/hooks', function () {
-//    $commands = ['cd /html/wechat', 'git pull'];
-//    if ('sha1=' . hash_hmac('sha1', file_get_contents('php://input'), env('WEBHOOKS_SECRET'), false) === $_SERVER['HTTP_X_HUB_SIGNATURE']) {
-//        foreach ($commands as $command) {
-//            shell_exec($command);
-//        }
-//        http_response_code(200);
-//    } else {
-//        abort(403);
-//    }
-//});
+//Route::post('/hooks', 'DeploymentController@deploy');
+Route::post('/hooks', function () {
+    $commands = ['cd /html/wechat', 'git pull'];
+    $payload = file_get_contents('php://input');
+    if ('sha1=' . hash_hmac('sha1', $payload, env('WEBHOOKS_SECRET'), false) === $_SERVER['HTTP_X_HUB_SIGNATURE']) {
+        foreach ($commands as $command) {
+            shell_exec($command);
+        }
+        http_response_code(200);
+    } else {
+        abort(403);
+    }
+});
