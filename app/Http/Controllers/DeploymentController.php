@@ -1,8 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 /**
  * Class DeploymentController
  *
@@ -15,14 +13,13 @@ class DeploymentController extends Controller
      */
     public function deploy(Request $request)
     {
-//        $commands = ['cd /html/wechat', 'git pull'];
+        $commands = ['cd /html/wechat', 'git pull'];
         $signature = $request->header('X-Hub-Signature'); // $headers = getallheaders(); $headers['X-Hub-Signature']
         $payload = file_get_contents('php://input');
         if ($this->isFromGithub($payload, $signature)) {
-            echo shell_exec("sleep 3 && cd /html/wechat && git pull");
-//            foreach ($commands as $command) {
-//                shell_exec($command);
-//            }
+            foreach ($commands as $command) {
+                shell_exec($command);
+            }
             http_response_code(200);
         } else {
             abort(403);
