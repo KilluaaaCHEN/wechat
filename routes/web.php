@@ -32,4 +32,17 @@ Route::group(['prefix' => 'wechat'], function () {
 
 });
 
-Route::post('/hooks','DeploymentController@deploy');
+//Route::post('/hooks', 'DeploymentController@deploy');
+
+Route::post('/hooks', function () {
+    $commands = ['cd /html/wechat', 'git pull'];
+    $headers = getallheaders();
+    if ('sha1=' . hash_hmac('sha1', file_get_contents('php://input'), env('WEBHOOKS_SECRET'), false) === $headers['X-Hub-Signature']) {
+        foreach ($commands as $command) {
+            shell_exec($command);
+        }
+        http_response_code(200);
+    } else {
+        abort(403);
+    }
+});
