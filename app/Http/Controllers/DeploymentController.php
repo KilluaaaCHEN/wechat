@@ -19,7 +19,7 @@ class DeploymentController extends Controller
         $signature = $request->header('X-Hub-Signature'); // $headers = getallheaders(); $headers['X-Hub-Signature']
         $payload = file_get_contents('php://input');
         if ($this->isFromGithub($payload, $signature)) {
-            echo shell_exec("sleep 3 && cd /html/wechat && /usr/bin/git reset --hard origin/master && /usr/bin/git clean -f && /usr/bin/git pull 2>&1");
+            echo shell_exec("sleep 3 && cd /html/wechat && git pull");
 //            foreach ($commands as $command) {
 //                shell_exec($command);
 //            }
