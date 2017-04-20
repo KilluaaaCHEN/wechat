@@ -39,7 +39,7 @@ class IndexController extends Controller
                             return "取消关注\n$message";
                             break;
                         case 'CLICK':// 自定义菜单事件推送
-                            return '自定义菜单事件' . $message;
+                            return '自定义菜单事件2' . $message;
                             break;
                         case 'LOCATION':
                             return "地理位置纬度:$message->Location_X
@@ -235,24 +235,15 @@ class IndexController extends Controller
 
     public function qrCode(Application $wechat)
     {
-        // 永久素材
-        $material = $wechat->material;
-        $result = $material->uploadImage("/Users/killua/百度云同步盘/来自：iPhone/2012-03-02 124548.jpg");  // 请使用绝对路径写法！除非你正确的理解了相对路径（好多人是没理解对的）！
-        var_dump($result);
-        exit;
-
 
         $qrcode = $wechat->qrcode;
         $result = $qrcode->forever('back_sign');
         $ticket = $result->ticket;// 或者 $result['ticket']
         $expireSeconds = $result->expire_seconds; // 有效秒数
-        $url = $result->url; // 二维码图片解析后的地址，开发者可根据该地址自行生成需要的二维码图片
-
-        dd($ticket, $expireSeconds, $url, $qrcode->url($ticket));
+//        $url = $result->url; // 二维码图片解析后的地址，开发者可根据该地址自行生成需要的二维码图片
 
         $url = $qrcode->url($ticket);
-
-
+        return url($url);
     }
 
 }
