@@ -18,7 +18,7 @@ class IndexController extends Controller
      */
     public function callback(Application $wechat)
     {
-        $userApi=$wechat->user;
+        $userApi = $wechat->user;
         $wechat->server->setMessageHandler(function ($message) use ($userApi) {
             switch ($message->MsgType) {
                 case 'event':
@@ -39,7 +39,12 @@ class IndexController extends Controller
                             return "取消关注\n$message";
                             break;
                         case 'CLICK':// 自定义菜单事件推送
-                            return '自定义菜单事件555' . $message;
+                            switch ($message->EventKey) {
+                                case "Zan_Us":
+                                    return '你赞我了一下:)';
+                                default:
+                                    return '未处理自定义菜单事件' . $message;
+                            }
                             break;
                         case 'LOCATION':
                             return "地理位置纬度:$message->Location_X
@@ -167,7 +172,7 @@ class IndexController extends Controller
                         [
                             "type" => "click",
                             "name" => "赞一下我们",
-                            "key" => "V1001_GOOD"
+                            "key" => "Zan_Us"
                         ],
                         [
                             "name" => "发送位置",
@@ -206,7 +211,7 @@ class IndexController extends Controller
 //        ];
         $menu->add($buttons);
         $menus = $menu->all();
-        dd($menus);
+        return $menus;
     }
 
     public function notice(Application $wechat)
